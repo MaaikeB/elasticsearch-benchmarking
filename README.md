@@ -7,7 +7,7 @@ By having a fixed and stable measure we can test the performance of the search e
 changes or our code changes (sometimes both at the same time). Also we can test modifications to the search engine
 configuration itself and see which configuration is best.
 
-This works as follows: 
+This works as follows:
 For a project (for example OpenBudget) with an ElasticSearch DB we define certain searches and expected results can be
 in a json configuration file.
 
@@ -18,16 +18,10 @@ For example:
   "searches": [
     {
       "search": "red cows",
-      "expected_results": ["Red Cow Corporation", "Rights for Red Cows"]  
-    } 
-  ],
-  "scoring_function": "position/10"
+      "expected_results": ["Red Cow Corporation", "Rights for Red Cows"]
+    }
+  ]
 }
-```
-
-Also a scoring function can be defined, for example:
-```
-position/10
 ```
 
 Let's say at a given time the search is run in ElasticSearch and the results would be:
@@ -36,16 +30,19 @@ Let's say at a given time the search is run in ElasticSearch and the results wou
   "results": [
     {"name": "Red Cow Corporation"},
     {"name": "Rights for Red Cows"},
-    {"name": "Cows corporation red"}
+    {"name": "Cows corporation red"},
+    {"name": "Stam"},
+    {"name": "Stam2"}
   ]
 }
 ```
 
-Since the expected results are on position 1 and 2, the score would be ... 
+Since the expected results are on position 1 and 2, and there are a total of 5 resulst, the score would be 0.8
+(At a later stage the scoring function will be configurable)
 This result is saved in the DB with the timestamp.
 
 At a later time the search is run again, and now the results are on position 2 and 3, due to changes in the code.
-The score will be lower, and this is also saved in the DB.
+The score will be 0.6, and this is also saved in the DB.
 
 After a while we can look at these scores over time and get insights about the search performances.
 
@@ -61,6 +58,7 @@ In the initial phase of the project, the program would perform the following fun
 ### Next phases
 
 In future phases the following functionality will be added:
+- Make the scoring function configurable
 - A mechanism to run periodically
 - Saving the scoring results to DB
 - Create a Web UI to view the results (in a graph and detailed results)
@@ -87,6 +85,12 @@ The input configuration can be provided in code, or in other form of configurati
 
 The scoring function needs to be configurable - some would give a higher score to the first search page over the second,
 others would prefer a more smooth scoring mechanism.
+
+## Run the ElasticSearch Benchmarking tool
+
+```buildoutcfg
+python3 main.py --config_file_path='sample/config.json' --index_name='jobs'
+```
 
 
 ## Local development

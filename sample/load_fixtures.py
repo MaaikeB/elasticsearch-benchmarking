@@ -4,7 +4,6 @@ from datapackage_pipelines_elasticsearch.processors.dump.to_index import ESDumpe
 from tableschema_elasticsearch.mappers import MappingGenerator
 
 
-
 class DumpToElasticSearch(ESDumper):
     def __init__(self, indexes, **parameters):
         parameters['indexes'] = indexes
@@ -15,7 +14,6 @@ class DumpToElasticSearch(ESDumper):
         self.stats = {}
 
     def __call__(self):
-
         def step(package):
             self.initialize(self.__params)
             self.__datapackage = self.prepare_datapackage(package.pkg.descriptor, self.__params)
@@ -50,8 +48,8 @@ if __name__ == '__main__':
         })(),
         DF.dump_to_path('data'),
         DF.add_field('value', 'object',
-                    default=lambda row: dict((k, v) for k, v in row.items() if k not in ('doc_id', 'score')),
-                    **{'es:index': False}),
+                     default=lambda row: dict((k, v) for k, v in row.items() if k not in ('doc_id', 'score')),
+                     **{'es:index': False}),
         DF.select_fields(['doc_id', 'value']),
         DumpToElasticSearch({
             'jobs': [

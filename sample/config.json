@@ -1,0 +1,9 @@
+{
+    "index": "jobs",
+    "searches": [
+        {
+            "search": {"query": {"function_score": {"query": {"bool": {"must": [{"bool": {"should": [{"multi_match": {"query": "engineering", "fields": ["Title Code No", "Additional Information", "Work Location 1", "Post Until", "Process Date", "Job Category", "Agency", "Hours/Shift", "Salary Frequency", "Work Location", "Division/Work Unit", "Preferred Skills", "Full-Time/Part-Time indicator", "Business Title^2", "Job Description^2", "Posting Updated", "Residency Requirement^2", "Minimum Qual Requirements", "Recruitment Contact", "Posting Type", "To Apply", "Civil Service Title", "Posting Date", "Level"], "type": "most_fields", "operator": "or"}}], "minimum_should_match": 1}}]}}, "boost_mode": "multiply", "field_value_factor": {"field": "score", "modifier": "sqrt", "missing": 1}}}, "size": 10, "from": 0, "highlight": {"fields": {"*": {}}}},
+            "expected_results": ["job/285120", "job/373833"]
+        }
+    ]
+}
