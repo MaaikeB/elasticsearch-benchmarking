@@ -15,6 +15,7 @@ For example:
 
 ```json
 {
+  "index_name": "corporations",
   "searches": [
     {
       "search": "red cows",
@@ -28,9 +29,9 @@ Let's say at a given time the search is run in ElasticSearch and the results wou
 ```json
 {
   "results": [
+    {"name": "Cows corporation red"},
     {"name": "Red Cow Corporation"},
     {"name": "Rights for Red Cows"},
-    {"name": "Cows corporation red"},
     {"name": "Stam"},
     {"name": "Stam2"}
   ]
@@ -38,10 +39,10 @@ Let's say at a given time the search is run in ElasticSearch and the results wou
 ```
 
 Since the expected results are on position 1 and 2, and there are a total of 5 resulst, the score would be 0.8
-(At a later stage the scoring function will be configurable)
+(For now a default scoring function is used, at a later stage the scoring function will be configurable)
 This result is saved in the DB with the timestamp.
 
-At a later time the search is run again, and now the results are on position 2 and 3, due to changes in the code.
+Let's say at a later time the search is run again, and now the results are on position 2 and 3, due to changes in the code.
 The score will be 0.6, and this is also saved in the DB.
 
 After a while we can look at these scores over time and get insights about the search performances.
@@ -89,15 +90,15 @@ others would prefer a more smooth scoring mechanism.
 ## Run the ElasticSearch Benchmarking tool
 
 ```buildoutcfg
-python3 main.py --config_file_path='sample/config.json' --index_name='jobs'
+python3 main.py --config_file_path='sample/config.json'
 ```
 
 
 ## Local development
 
 In order to have an ElasticSearch server with data to run on, follow the below steps:
-1. Install Dependencies:
-    a. Install Docker locally
+1. Install Dependencies:   
+    a. Install Docker locally    
     b. Install Python dependencies:
     ```bash
     $ pip install dataflows datapackage-pipelines-elasticsearch
