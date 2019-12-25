@@ -27,5 +27,4 @@ searches = [
 ]
 
 score = benchmark.execute(searches)
-
 print('score', score)
