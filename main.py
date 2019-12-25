@@ -16,14 +16,11 @@ benchmark = Benchmark(
     scorer=FirstPageScorer(page_size=10, factor=0.87),
 )
 
-def expected_results(r):
-    return r['Posting Type'] == 'Internal'
-
 searches = [
     (ElasticSearchQuery({
           "query": {"match": {"Posting Type": 'Internal'}},
           "size": 10
-        }), lambda r: r['Posting Type'] == 'Internal'),
+     }), lambda r: r['Posting Type'] == 'Internal'),
 ]
 
 score = benchmark.execute(searches)
