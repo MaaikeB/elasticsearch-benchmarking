@@ -8,10 +8,7 @@ class FirstPageScorer(Scoring):
         self.page_size = page_size
         self.factor = factor
 
-    def _default_scorer(self):
-        return 1
-
-    def calculate_score(self, results, expected_results_function=_default_scorer):
+    def calculate_score(self, results, expected_results_function):
         score = 0
         for result in results:
             if expected_results_function(result.fields):

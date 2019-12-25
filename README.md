@@ -60,7 +60,7 @@ In the initial phase of the project, the program would perform the following fun
 
 In future phases the following functionality will be added:
 - Make the scoring function configurable
-- A mechanism to run periodically
+- A mechanism to run periodically (using cronjob)
 - Saving the scoring results to DB
 - Create a Web UI to view the results (in a graph and detailed results)
 
